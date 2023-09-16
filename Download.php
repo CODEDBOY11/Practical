@@ -1,16 +1,12 @@
-<?php
-if (isset($_GET["file"])) {
-    $filePath = "uploads/" . $_GET["file"];
-    
-    if (file_exists($filePath)) {
-        header("Content-Type: application/octet-stream");
-        header("Content-Disposition: attachment; filename=" . basename($filePath));
-        header("Content-Length: " . filesize($filePath));
-        
-        readfile($filePath);
-        exit();
-    } else {
-        echo "File not found.";
+<!-- List of Uploaded Files -->
+<h2>Uploaded Files:</h2>
+<ul>
+    <?php
+    $files = scandir("uploads"); // Assuming files are stored in an "uploads" directory
+    foreach ($files as $file) {
+        if ($file !== '.' && $file !== '..') {
+            echo '<li><a href="uploads/' . $file . '" download>' . $file . '</a></li>';
+        }
     }
-}
-?
+    ?>
+</ul
