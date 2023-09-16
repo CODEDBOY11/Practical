@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
   <title>Download Musics Here</title>
   <link rel="stylesheet" href="music.css"> <!-- Link your external CSS file -->
 </head>
 <body>
-  <h1 class="page-title">
-    Download and Listen to Music Here
-  </h1>
+  <h1 class="page-title">Download and Listen to Music Here</h1>
 
   <!-- Search Bar Section -->
   <section class="search-section">
-    <h2>Search  Songs</h2>
+    <h2>Search Songs</h2>
     <form id="song-search-form">
       <input type="text" id="song-search-input" placeholder="Enter song title, artist, or genre">
       <button type="submit" id="song-search-button">Search</button>
     </form>
-    </section>
+  </section>
+
+  <!-- Upload Songs Section -->
   <section>
-  <h2>Upload Songs</h2>
-  <form action="netdot.php" method="post" enctype="multipart/form-data">
-    <label for="song-file">Select a song:</label>
-    <input type="file" name="song-file" id="song-file" accept=".mp3, .wav">
-    <br>
-    <label for="song-title">Song Title:</label>
-    <input type="text" name="song-title" id="song-title" required>
-    <br>
-    <label for="song-artist">Artist:</label>
-    <input type="text" name="song-artist" id="song-artist" required>
-    <br>
-    <label for="song-genre">Genre:</label>
-    <input type="text" name="song-genre" id="song-genre">
-    <br>
-    <button type="submit" name="upload-song">Upload</button>
-  </form>
-</section
+    <h2>Upload Songs</h2>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+      <label for="song-file">Select a song:</label>
+      <input type="file" name="song-file" id="song-file" accept=".mp3, .wav">
+      <br>
+      <label for="song-title">Song Title:</label>
+      <input type="text" name="song-title" id="song-title" required>
+      <br>
+      <label for="song-artist">Artist:</label>
+      <input type="text" name="song-artist" id="song-artist" required>
+      <br>
+      <label for="song-genre">Genre:</label>
+      <input type="text" name="song-genre" id="song-genre">
+      <br>
+      <button type="submit" name="upload-song">Upload</button>
+    </form>
+  </section>
+
+  <!-- Display Uploaded File and Download Link -->
+  <section class="download-section">
+    <?php
+    if (isset($_GET["download"])) {
+      $downloadFile = $_GET["download"];
+      echo '<a href="' . $downloadFile . '" download>Download Song</a>';
+    }
+
+    if (isset($_GET["uploaded_file"])) {
+      $uploadedFile = $_GET["uploaded_file"];
+      echo '<p>Uploaded File: ' . basename($uploadedFile) . '</p>';
+    }
+    ?>
+  </section>
 </body>
-</html>
+  </html
