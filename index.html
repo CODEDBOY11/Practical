@@ -2,54 +2,30 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Download Musics Here</title>
-  <link rel="stylesheet" href="music.css"> <!-- Link your external CSS file -->
+  <title>File Upload and Download</title>
 </head>
 <body>
-  <h1 class="page-title">Download and Listen to Music Here</h1>
+  <h1>File Upload and Download</h1>
 
-  <!-- Search Bar Section -->
-  <section class="search-section">
-    <h2>Search Songs</h2>
-    <form id="song-search-form">
-      <input type="text" id="song-search-input" placeholder="Enter song title, artist, or genre">
-      <button type="submit" id="song-search-button">Search</button>
-    </form>
-  </section>
+  <!-- File Upload Form -->
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    <label for="file">Select a file:</label>
+    <input type="file" name="file" id="file" required>
+    <br>
+    <button type="submit" name="upload">Upload</button>
+  </form>
 
-  <!-- Upload Songs Section -->
-  <section>
-    <h2>Upload Songs</h2>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-      <label for="song-file">Select a song:</label>
-      <input type="file" name="song-file" id="song-file" accept=".mp3, .wav">
-      <br>
-      <label for="song-title">Song Title:</label>
-      <input type="text" name="song-title" id="song-title" required>
-      <br>
-      <label for="song-artist">Artist:</label>
-      <input type="text" name="song-artist" id="song-artist" required>
-      <br>
-      <label for="song-genre">Genre:</label>
-      <input type="text" name="song-genre" id="song-genre">
-      <br>
-      <button type="submit" name="upload-song">Upload</button>
-    </form>
-  </section>
-
-  <!-- Display Uploaded File and Download Link -->
-  <section class="download-section">
+  <!-- List of Uploaded Files -->
+  <h2>Uploaded Files:</h2>
+  <ul>
     <?php
-    if (isset($_GET["download"])) {
-      $downloadFile = $_GET["download"];
-      echo '<a href="' . $downloadFile . '" download>Download Song</a>';
-    }
-
-    if (isset($_GET["uploaded_file"])) {
-      $uploadedFile = $_GET["uploaded_file"];
-      echo '<p>Uploaded File: ' . basename($uploadedFile) . '</p>';
+    $files = scandir("uploads"); // Assuming your uploaded files are stored in an "uploads" directory
+    foreach ($files as $file) {
+      if ($file !== '.' && $file !== '..') {
+        echo '<li><a href="download.php?file=' . $file . '">' . $file . '</a></li>';
+      }
     }
     ?>
-  </section>
+  </ul>
 </body>
-  </html
+      </html
